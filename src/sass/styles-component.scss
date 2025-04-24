@@ -1,0 +1,16 @@
+
+$primary-color:#02C543;
+$secundary-color:#191a1f;
+$text-color:#FFFF;
+
+
+@mixin div {
+  width: 380px;
+  height: 60px;
+  background-color: #01040F;
+  border-radius: 8px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
