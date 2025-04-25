@@ -1,4 +1,5 @@
 <div class="background">
+  <i [class]="mode === 'light' ? 'bi bi-moon-stars-fill':'bi bi-sun-fill'" (click)="toggleTheme()"></i>
       <div class="content">
         <div class="card">
           <img src="assets/images/Frame.png" alt="_img_login" class="img" >
@@ -7,7 +8,7 @@
           <div class="button-social">
             <div class="items">
               <img src="assets/icons/facebook.png" alt="facebook_icon" class="icon">
-              <p>Conectar com facebook</p>
+              <p>Conectar com Facebook</p>
             </div>
           </div>
           <div class="button-social">

@@ -1,8 +1,22 @@
 @use "../../../sass/styles-component.scss" as *;
+
+.bi{
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 999;
+
+  font-size: 25px;
+  color:  var(--text-color);
+
+  &:hover{
+    cursor: pointer;
+  }
+}
 .background {
   width: 100vw;
   height: 100vh;
-  background-color: $secundary-color;
+  background-color: var(--secundary-color);
 
   .content {
     display: flex;
@@ -30,7 +44,7 @@
       }
 
       h3 {
-        color: $text-color;
+        color: var(--text-color);
         font-size: 25px;
         font-weight: 400;
       }
@@ -38,18 +52,21 @@
       .button-social {
         @include div;
 
+        background-color: var(--bg-social-button);
         .items {
           gap: 0.5rem;
           display: flex;
           align-items: center;
           justify-content: flex-start;
-          color: $text-color;
+          color: var(--text-color);
           width: 240px;
           .icon {
             width: 30px;
             height: 30px;
           }
-
+          p{
+            font-size: 15px;
+          }
           &:hover {
             cursor: pointer;
           }
@@ -61,11 +78,11 @@
         flex-direction: row;
         align-items: inherit;
         gap: 0.5rem;
-        color: $text-color;
+        color: var(--text-color);
         .line {
           width: 170px;
           height: 1px;
-          background-color: $text-color;
+          background-color: var(--text-color);
           opacity: 0.5;
         }
       }
@@ -73,7 +90,7 @@
       .button-create-account{
         width: 380px;
         height: 80px;
-        background-color: $primary-color;
+        background-color: var(--primary-color);
         border-radius: 50px;
         color: #fff;
 
