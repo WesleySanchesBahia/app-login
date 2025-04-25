@@ -1,0 +1,35 @@
+
+$primary-color:#02C543;
+
+$secundary-color-dark:#191a1f;
+$text-color-dark:#FFFF;
+$bg-social-button-dark: #01040F;
+
+$secundary-color-light:#f1f1f1;
+$text-color-light:#191a1f;
+$bg-social-button-light: #bbbbbb;
+
+
+@mixin light(){
+  --text-color: #{$text-color-light};
+  --primary-color: #{$primary-color};
+  --secundary-color: #{$secundary-color-light};
+  --bg-social-button: #{$bg-social-button-light};
+};
+
+@mixin dark(){
+  --text-color: #{$text-color-dark};
+  --primary-color: #{$primary-color};
+  --secundary-color: #{$secundary-color-dark};
+  --bg-social-button: #{$bg-social-button-dark};
+}
+
+@mixin div {
+  width: 380px;
+  height: 60px;
+  border-radius: 8px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
