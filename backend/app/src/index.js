@@ -1,70 +1,56 @@
-require("dotenv").config();
-const express = require("express");
-const passport = require("passport");
-const session = require("express-session");
-const cors = require("cors");
-require("../auth/google");
-
-
+// index.js
+const express = require('express');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+const { OAuth2Client } = require('google-auth-library');
+require('dotenv').config();
 
 const app = express();
-const port = 3000;
-app.use(
-  cors({
-    origin: "http://localhost:4200",
-    credentials: true,
-  })
-);
+const PORT = 3000;
 
-app.use(
-  session({
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: true,
-    cookie: {
-      httpOnly: true,
-      secure: false, // true em produção (https)
-      sameSite: "lax",
-    },
-  })
-);
+// Cliente OAuth do Google
+const client = new OAuth2Client();
 
-app.use(passport.initialize());
-app.use(passport.session());
+// Middlewares
+const corsOptions = {
+  origin: "http://localhost:4200",
+  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+  credentials: true // se estiver usando cookies ou login com Google
+}
+app.use(cors(corsOptions));
+app.use(bodyParser.json());
 
-// Rotas de autenficação
-app.get(
-  "/auth/google",
-  passport.authenticate("google", { scope: ["profile", "email"] })
-);
+// Rota de autenticação
+app.post('/api/auth/google', async (req, res) => {
+  const { token } = req.body;
+  try {
+    // Valida o token com o Google
+    const ticket = await client.verifyIdToken({
+      idToken: token,
+      audience: process.env.GOOGLE_CLIENT_ID,
+      
+    });
 
-app.get(
-  "/auth/google/callback",
-  passport.authenticate("google", { failureRedirect: "/" }),
-  (req, res) => {
-    res.redirect("http://localhost:4200/profile");
+    const payload = ticket.getPayload();
+
+    // Aqui você pode salvar/consultar o usuário no seu banco, se quiser
+    const user = {
+      nome: payload.name,
+      email: payload.email,
+      foto: payload.picture,
+      idGoogle: payload.sub,
+    };
+
+    console.log('Usuário autenticado:', user);
+
+    res.status(200).json({ mensagem: 'Login com Google bem-sucedido', usuario: user });
+  } catch (error) {
+    console.error('Erro ao verificar token:', error);
+    res.status(401).json({ mensagem: 'Token inválido ou expirado' });
   }
-);
-
-app.get("profile", (req, res) => {
-  if (!req.isAuthenticated()) {
-    return res.status(401).json({ message: "Não autentificado!" });
-  }
-
-  res.json(req.user);
 });
 
-app.get("logout", (req, res) => {
-  req.logOut(() => {
-    res.redirect("http://localhost:4200/");
-  });
+// Inicializa o servidor
+app.listen(PORT, () => {
+  console.log(`🔥 Servidor rodando em http://localhost:${PORT}`);
 });
-
-app.get("/", (req, res) => {
-  res.send("API de autentificação com Google");
-});
-
-
-app.listen(port, () => {
-    console.log(`Aplicação rodando em http://localhost:${port}`);
-})

@@ -8,5 +8,5 @@ import { LoginComponent } from "./pages/login/login.component";
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title = 'frontend';
+  title = 'login-app';
 }
