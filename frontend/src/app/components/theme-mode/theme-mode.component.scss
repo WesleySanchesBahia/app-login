@@ -1,0 +1,14 @@
+
+.bi{
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 999;
+
+  font-size: 25px;
+  color:  var(--text-color);
+
+  &:hover{
+    cursor: pointer;
+  }
+}

@@ -1,1 +1,22 @@
-<p>profile works!</p>
+<app-theme-mode></app-theme-mode>
+<div class="background">
+  <div class="content">
+    <div class="card">
+      <div class="card-image">
+        <img src="{{profile?.foto}}" alt="">
+      </div>
+
+      <div class="info">
+        <h3>Hello world!</h3>
+        <h3>{{profile?.nome}}</h3>
+        <p>E-mail: {{profile?.email}}</p>
+        <p>ID: {{profile?.idGoogle}}</p>
+      </div>
+
+      <div class="logout">
+        <button class="button-logout">Logout</button>
+      </div>
+    </div>
+  </div>
+
+</div>

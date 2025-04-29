@@ -1,25 +1,23 @@
 import { HttpClient } from '@angular/common/http';
 import { AfterViewInit, Component, OnInit } from '@angular/core';
-
+import { ThemeModeComponent } from "../../components/theme-mode/theme-mode.component";
+import { LoggedUserService } from '../../services/logged-user.service';
+import { User } from '../../../types/User';
+import { Route, Router } from '@angular/router';
 declare const google:any;
-enum  Mode {
-  DARK = "dark",
-  LIGHT = "light"
-}
+
 @Component({
   selector: 'app-login',
-  imports: [],
+  imports: [ThemeModeComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
 export class LoginComponent implements OnInit, AfterViewInit {
 
-  constructor(private http:HttpClient){}
+  constructor(private http:HttpClient, private loggedUser:LoggedUserService, private router:Router){}
 
-  public mode!:Mode;
   ngOnInit(): void {
-    this.mode = Mode.DARK;
-    document.body.classList.toggle(this.mode);
+
 
   }
   ngAfterViewInit(): void {
@@ -27,23 +25,6 @@ export class LoginComponent implements OnInit, AfterViewInit {
   }
 
 
-  toggleTheme(): void {
-    if(this.mode === Mode.DARK){
-      this.mode = Mode.LIGHT;
-      this.updateTheme(Mode.DARK);
-
-    }else {
-      this.mode = Mode.DARK;
-      this.updateTheme(Mode.LIGHT);
-    }
-  }
-
-
-  updateTheme(modeTheme:Mode): void {
-    document.body.classList.remove(modeTheme);
-    document.body.classList.add(this.mode);
-
-  }
 
 
   initGoogle(): void {
@@ -63,9 +44,10 @@ export class LoginComponent implements OnInit, AfterViewInit {
   credencialResponse(response:any): void{
     const { credential } = response;
 
-    this.http.post("http://localhost:3000/api/auth/google", { token: credential }).subscribe({
-      next:(reponse) => {
-        console.log(reponse);
+    this.http.post<{messagem:string, usuario:User}>("http://localhost:3000/api/auth/google", { token: credential }).subscribe({
+      next:(obj) => {
+        this.loggedUser.writeDataUser(obj.usuario);
+        this.router.navigate(["/profile"]);
       },
       error:(error) => {
         console.log("Erro:", error);
