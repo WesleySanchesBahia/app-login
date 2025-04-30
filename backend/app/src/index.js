@@ -16,6 +16,11 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
 
+app.get("/api/secret", (req, res) => {
+    const google_client_id = process.env.GOOGLE_CLIENT_ID;
+    res.status(200).json({client_id: google_client_id})
+});
+
 app.post('/api/auth/google', async (req, res) => {
   const { token } = req.body;
   try {

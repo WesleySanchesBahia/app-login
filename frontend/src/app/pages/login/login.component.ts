@@ -5,12 +5,13 @@ import { LoggedUserService } from '../../services/logged-user.service';
 import { User } from '../../../types/User';
 import { Router } from '@angular/router';
 import { Dialog, DIALOG_DATA, DialogModule } from '@angular/cdk/dialog';
+import { InputComponent } from "../../components/input/input.component";
 
 declare const google: any;
 
 @Component({
   selector: 'app-login',
-  imports: [ThemeModeComponent,DialogModule],
+  imports: [ThemeModeComponent, DialogModule, InputComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
@@ -20,7 +21,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
     private http: HttpClient,
     private loggedUser: LoggedUserService,
     private router: Router,
-    private dialog: Dialog
+    private dialog: Dialog,
   ) {}
 
   ngOnInit(): void {}
@@ -28,14 +29,23 @@ export class LoginComponent implements OnInit, AfterViewInit {
     this.initGoogle();
   }
 
+
   initGoogle(): void {
-    google.accounts.id.initialize({
-      client_id:
-        '157346808012-72edm388v2n7od3je06k9s1vh6ndd6hm.apps.googleusercontent.com',
-      callback: (response: any) => {
-        this.credencialResponse(response);
+    this.http.get<any>("http://localhost:3000/api/secret").subscribe(({
+      next:(res) => {
+        const {client_id} = res;
+        google.accounts.id.initialize({
+          client_id:client_id,
+          callback: (response: any) => {
+            this.credencialResponse(response);
+          },
+        });
       },
-    });
+      error:(error) => {
+        console.log("Erro em obter id_client");
+      }
+    }))
+
   }
 
   loginGoogle(): void {
@@ -64,8 +74,6 @@ export class LoginComponent implements OnInit, AfterViewInit {
   openDialog() {
     this.dialog.open<any>(this.template, {
       minWidth: '300px',
-      panelClass:'',
-      autoFocus:false
     });
   }
 }

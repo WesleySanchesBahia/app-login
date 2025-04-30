@@ -1,0 +1,31 @@
+
+  .input{
+    display: flex;
+    flex-direction: row;
+    align-items: center ;
+    width: max(100% - 15px);
+    height: 60px;
+    margin: 1rem;
+    background-color: var(--bg-color);
+    border-radius: 8px;
+    gap: 0.5rem;
+    transition: box-shadow 0.3s ease-in-out;
+
+    &:focus-within{
+      box-shadow: 1px 1px 1px 0.5px var(--primary-color);
+    }
+    .icon{
+      margin: 0px 0px 0px 0.5rem;
+    }
+    input{
+      width: 100%;
+      text-indent: 2px;
+      outline: none;
+      background: transparent;
+      border: none;
+      color: var(--text-color);
+      margin: 2px;
+      font-weight: 500;
+    }
+  }
+

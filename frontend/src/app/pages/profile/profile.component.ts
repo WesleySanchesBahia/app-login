@@ -1,4 +1,4 @@
-import { AfterViewChecked, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ThemeModeComponent } from "../../components/theme-mode/theme-mode.component";
 import { LoggedUserService } from '../../services/logged-user.service';
 import { User } from '../../../types/User';
@@ -11,18 +11,18 @@ import { Router } from '@angular/router';
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss'
 })
-export class ProfileComponent implements OnInit, AfterViewChecked {
+export class ProfileComponent implements OnInit, AfterViewInit {
 
   constructor(private user: LoggedUserService, private router:Router){
 
   }
-  profile!:User | null;
+  public profile!:User | null;
   ngOnInit(): void {
   this.profile = this.user.data;
   }
 
 
-  ngAfterViewChecked(): void {
+  ngAfterViewInit(): void {
     let element = document.querySelector(".card") as HTMLElement;
 
     VanillaTilt.init(element, {
