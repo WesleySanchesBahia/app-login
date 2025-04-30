@@ -94,3 +94,33 @@
     }
   }
 }
+
+
+.form-register{
+  width: 400px;
+  height: 400px;
+  background-color: #2B964F;
+  border-radius: 5px;
+  background-color: var(--secundary-color);
+  color: var(--text-color);
+
+  text-align: center;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  h3{
+    margin: 1rem;
+    color: var(--text-color);
+    font-size: 25px;
+    font-weight: 400;
+  }
+  .divider{
+    border-bottom: 0.1rem solid var(--text-color);
+    width: 98%;
+    color: var(--text-color);
+    box-sizing: border-box;
+    opacity: 0.5;
+  }
+}
+

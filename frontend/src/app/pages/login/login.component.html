@@ -16,7 +16,7 @@
             <span>ou</span>
             <div class="line"></div>
           </div>
-          <div class="button-create-account">
+          <div class="button-create-account" (click)="openDialog()">
             <p>Entre com um E-mail de contato</p>
           </div>
         </div>
@@ -24,3 +24,9 @@
 </div>
 
 
+<ng-template #templateRegister>
+  <div class="form-register">
+    <h3>Cadastrar</h3>
+    <div class="divider"></div>
+  </div>
+</ng-template>
