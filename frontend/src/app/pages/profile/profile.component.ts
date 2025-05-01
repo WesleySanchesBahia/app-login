@@ -4,10 +4,11 @@ import { LoggedUserService } from '../../services/logged-user.service';
 import { User } from '../../../types/User';
 import VanillaTilt from 'vanilla-tilt';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-profile',
-  imports: [ThemeModeComponent],
+  imports: [ThemeModeComponent, CommonModule],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss'
 })
@@ -17,8 +18,9 @@ export class ProfileComponent implements OnInit, AfterViewInit {
 
   }
   public profile!:User | null;
+  public notFoundImg:boolean = false;
   ngOnInit(): void {
-  this.profile = this.user.data;
+      this.profile = this.user.data || null;
   }
 
 
@@ -36,6 +38,11 @@ export class ProfileComponent implements OnInit, AfterViewInit {
 
   logout(): void{
     this.router.navigate(["/"]);
+  }
+
+
+  imgError():void {
+    this.notFoundImg = true;
   }
 
 }

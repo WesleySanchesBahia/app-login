@@ -33,3 +33,10 @@ $bg-color-light: #bbbbbb;
   align-items: center;
   justify-content: center;
 }
+
+@mixin profile-img{
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  color: var(--text-color);
+}

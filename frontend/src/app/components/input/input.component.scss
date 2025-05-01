@@ -12,7 +12,7 @@
     transition: box-shadow 0.3s ease-in-out;
 
     &:focus-within{
-      box-shadow: 1px 1px 1px 0.5px var(--primary-color);
+      box-shadow: 1px 1px 0px 0.5px var(--primary-color);
     }
     .icon{
       margin: 0px 0px 0px 0.5rem;

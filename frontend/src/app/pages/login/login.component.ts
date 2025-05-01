@@ -24,7 +24,9 @@ export class LoginComponent implements OnInit, AfterViewInit {
     private dialog: Dialog,
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+
+  }
   ngAfterViewInit(): void {
     this.initGoogle();
   }

@@ -3,20 +3,23 @@
   <div class="content">
     <div class="card">
       <div class="card-image">
-        <img [src]="profile?.foto" alt="foto_user">
+        <img  [src]="profile?.foto" alt="foto_user" (error)="imgError()" *ngIf="!notFoundImg else NotFoundImg">
       </div>
-
       <div class="info">
-        <h3>HELLO WORLD!</h3>
-        <h3>{{profile?.nome}}</h3>
-        <p>E-mail: {{profile?.email}}</p>
-        <p>ID: {{profile?.idGoogle}}</p>
+        <h3>WELLCOME</h3>
+        <h3>{{ profile?.nome?.toLocaleUpperCase() }}</h3>
+        <p>{{ profile?.email }}</p>
       </div>
 
       <div class="logout">
-        <button class="button-logout" (click)="logout()" >Logout</button>
+        <button class="button-logout" (click)="logout()">Logout</button>
       </div>
     </div>
   </div>
-
 </div>
+
+<ng-template #NotFoundImg>
+  <div class="not-found-image">
+    <span>{{ profile?.nome?.substr(0, 1)?.toLocaleUpperCase() }}</span>
+  </div>
+</ng-template>

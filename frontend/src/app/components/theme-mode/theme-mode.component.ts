@@ -4,12 +4,14 @@ enum  Mode {
   DARK = "dark",
   LIGHT = "light"
 }
+
 @Component({
   selector: 'app-theme-mode',
   imports: [],
   templateUrl: './theme-mode.component.html',
   styleUrl: './theme-mode.component.scss'
 })
+
 export class ThemeModeComponent implements OnInit {
   public mode!:Mode;
 
