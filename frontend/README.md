@@ -1,59 +1,169 @@
-# Frontend
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.6.
+# APP-LOGIN
 
-## Development server
+Aplicação desenvolvida para fins de conhecimento e desenvovimento da habilitade de codar.
 
-To start a local development server, run:
 
-```bash
-ng serve
+
+
+## Funcionalidades
+
+✔️ Implementação de Dark mode
+
+✔️ Criação de usuário usando API autentificação Google.
+
+✔️ Cadastro de usuário.
+
+✔️ Proteção de rota no frontend.
+
+✔️ API em node.js para criar token de acesso e percitencia do dados localmente usuário localmente. 
+
+# 📘 Documentação
+
+Esta API permite criar usuários e autenticar via formulário ou Google OAuth. Abaixo estão as rotas disponíveis, parâmetros esperados e exemplos de respostas.
+
+---
+
+## 📌 Base URL
+
+```
+http://localhost:3000
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+---
 
-## Code scaffolding
+## 📤 Rotas
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### ✅ Criar Usuário e Retornar Token
 
-```bash
-ng generate component component-name
+```http
+POST /api/user/create
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Cria um novo usuário com nome e e-mail. Retorna um token JWT para autenticação.
 
-```bash
-ng generate --help
+#### Headers
+
+| Nome         | Tipo     | Obrigatório | Descrição                   |
+| ------------ | -------- | ----------- | --------------------------- |
+| Content-Type | `string` | Sim         | Deve ser `application/json` |
+
+#### Body
+
+```json
+{
+  "nome": "Mario",
+  "email": "mario@email.com"
+}
 ```
 
-## Building
+| Parâmetro | Tipo     | Obrigatório | Descrição         |
+| --------- | -------- | ----------- | ----------------- |
+| `nome`    | `string` | Sim         | Nome do usuário   |
+| `email`   | `string` | Sim         | E-mail do usuário |
 
-To build the project run:
+#### Resposta (201)
 
-```bash
-ng build
+```json
+{
+  "user": {
+    "id": "1",
+    "nome": "Mario José",
+    "email": "mario@email.com"
+  },
+  "token": "eyJhbGciOiJIUzI1NiIsInR..."
+}
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+#### Possíveis Erros
 
-## Running unit tests
+| Código | Mensagem                 | Causa                            |
+| ------ | ------------------------ | -------------------------------- |
+| 400    | Dados inválidos          | Body incompleto ou mal formatado |
+| 500    | Erro interno do servidor | Problemas no processo de criação |
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+---
 
-```bash
-ng test
+### 🔐 Autenticação via Google
+
+```http
+POST /api/auth/google
 ```
 
-## Running end-to-end tests
+Autentica um usuário usando um token de login do Google. Cria o usuário, se não existir, e retorna um token JWT.
 
-For end-to-end (e2e) testing, run:
+#### Headers
 
-```bash
-ng e2e
+| Nome         | Tipo     | Obrigatório | Descrição                   |
+| ------------ | -------- | ----------- | --------------------------- |
+| Content-Type | `string` | Sim         | Deve ser `application/json` |
+
+#### Body
+
+```json
+{
+  "credential": "TOKEN_GOOGLE_RECEBIDO"
+}
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+| Parâmetro    | Tipo     | Obrigatório | Descrição                                |
+| ------------ | -------- | ----------- | ---------------------------------------- |
+| `credential` | `string` | Sim         | Token JWT de login fornecido pelo Google |
 
-## Additional Resources
+#### Resposta (200)
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+```json
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR...",
+  "user": {
+    "id": "2",
+    "nome": "Maria",
+    "email": "maria@email.com",
+    "foto": "https://...",
+    "idGoogle": "1234567890"
+  }
+}
+```
+
+#### Possíveis Erros
+
+| Código | Mensagem                   | Causa                             |
+| ------ | -------------------------- | --------------------------------- |
+| 401    | Token inválido ou expirado | Token do Google não é mais válido |
+| 500    | Erro interno do servidor   | Problemas ao verificar o token    |
+
+---
+
+### 🔑 Obter Client ID do Google
+
+```http
+GET /api/secret
+```
+
+Retorna o `client_id` usado na autenticação Google. Útil para o frontend configurar o login.
+
+#### Resposta (200)
+
+```json
+{
+  "client_id": "1234567890-abc123def456.apps.googleusercontent.com"
+}
+```
+
+---
+
+## 🛠️ Execução
+
+### Instalar dependências
+
+```bash
+npm install
+```
+
+### Executar servidor
+
+```bash
+node index.js
+```
+
+---

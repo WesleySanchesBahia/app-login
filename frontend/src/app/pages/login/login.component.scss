@@ -157,6 +157,15 @@
           transparent
         );
       }
+
+      &:disabled{
+        cursor: not-allowed;
+        background-color: color-mix(
+          in srgb,
+          var(--primary-color) 40%,
+          transparent
+        );
+      }
     }
   }
 }

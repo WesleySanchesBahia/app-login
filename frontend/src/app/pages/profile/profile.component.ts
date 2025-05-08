@@ -1,6 +1,5 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ThemeModeComponent } from "../../components/theme-mode/theme-mode.component";
-import { LoggedUserService } from '../../services/logged-user.service';
 import { User } from '../../../types/User';
 import VanillaTilt from 'vanilla-tilt';
 import { Router } from '@angular/router';
@@ -14,13 +13,13 @@ import { CommonModule } from '@angular/common';
 })
 export class ProfileComponent implements OnInit, AfterViewInit {
 
-  constructor(private user: LoggedUserService, private router:Router){
+  constructor( private router:Router){
 
   }
   public profile!:User | null;
   public notFoundImg:boolean = false;
   ngOnInit(): void {
-      this.profile = this.user.data || null;
+      this.profile = JSON.parse(sessionStorage.getItem("user") || '');
   }
 
 
@@ -37,6 +36,7 @@ export class ProfileComponent implements OnInit, AfterViewInit {
 
 
   logout(): void{
+    sessionStorage.clear();
     this.router.navigate(["/"]);
   }
 

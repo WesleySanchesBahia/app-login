@@ -2,18 +2,15 @@ import {
   Component,
   forwardRef,
   Input,
-  OnChanges,
-  SimpleChanges,
 } from '@angular/core';
 import {
   ControlValueAccessor,
-  FormsModule,
   NG_VALUE_ACCESSOR,
   ReactiveFormsModule,
 } from '@angular/forms';
 @Component({
   selector: 'app-input',
-  imports: [ReactiveFormsModule, FormsModule],
+  imports: [ReactiveFormsModule],
   templateUrl: './input.component.html',
   styleUrl: './input.component.scss',
   providers: [

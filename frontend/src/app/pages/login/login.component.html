@@ -25,15 +25,15 @@
 
 
 <ng-template #templateRegister>
-  <form class="form-register">
+  <form [formGroup]="form" class="form-register" (ngSubmit)="createUser()">
     <img src="assets/images/img_register.png" alt="_img_login" class="img" >
     <h3>Criar nova conta</h3>
     <div class="inputs">
-      <app-input #input placeholder="Nome completo" srcIcon="assets/icons/user.png"></app-input>
-      <app-input placeholder="E-mail" srcIcon="assets/icons/email.png"></app-input>
+      <app-input  placeholder="Nome completo" srcIcon="assets/icons/user.png" formControlName="nome"></app-input>
+      <app-input placeholder="E-mail" srcIcon="assets/icons/email.png" formControlName="email"></app-input>
     </div>
     <div class="container-button">
-      <button>Inscrever-se</button>
+      <button [disabled]="form.invalid">Inscrever-se</button>
     </div>
   </form>
 </ng-template>
