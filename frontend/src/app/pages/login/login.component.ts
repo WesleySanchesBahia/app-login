@@ -1,11 +1,12 @@
 import { HttpClient } from '@angular/common/http';
-import { AfterViewInit, Component, ElementRef, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { ThemeModeComponent } from '../../components/theme-mode/theme-mode.component';
 import { User } from '../../../types/User';
 import { Router } from '@angular/router';
-import { Dialog, DIALOG_DATA, DialogModule } from '@angular/cdk/dialog';
+import { Dialog,  DialogModule } from '@angular/cdk/dialog';
 import { InputComponent } from "../../components/input/input.component";
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { environment } from '../../../environments/environment.development';
 
 declare const google: any;
 
@@ -23,7 +24,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
     private dialog: Dialog,
   ) {}
 
-  private url:string = "http://localhost:3000/api/";
+  private url:string = environment.apiUrl;
 
   public form = new FormGroup({
     nome: new FormControl('', [Validators.required]),
