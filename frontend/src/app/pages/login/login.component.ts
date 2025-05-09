@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { Dialog,  DialogModule } from '@angular/cdk/dialog';
 import { InputComponent } from "../../components/input/input.component";
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { environment } from '../../../environments/environment.development';
+import { environment } from '../../../environments/environment';
 
 declare const google: any;
 
@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
 
   initGoogle(): void {
-    this.http.get<any>(`${this.url}secret`).subscribe(({
+    this.http.get<any>(`${this.url}/secret`).subscribe(({
       next:(res) => {
         const {client_id} = res;
         google.accounts.id.initialize({
@@ -66,7 +66,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
     const { credential } = response;
     this.http
       .post<{ token:string; user:User}>(
-        `${this.url}auth/google`,
+        `${this.url}/auth/google`,
         { credential: credential }
       )
       .subscribe({
@@ -88,7 +88,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
 
   createUser():void {
-    this.http.post<any>(`${this.url}user/create`, this.form.value).subscribe({
+    this.http.post<any>(`${this.url}/user/create`, this.form.value).subscribe({
       next:(res) => {
         const {token, user} = res;
         if(token.length){

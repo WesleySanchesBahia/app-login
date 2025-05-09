@@ -8,12 +8,12 @@ require('dotenv').config();
 
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 const database = new DatabaseMemory();
 const client = new OAuth2Client();
 
 const corsOptions = {
-  origin: process.env.LOCALHOST,
+  origin: process.env.ORIGINS || "http://localhost:4200",
   credentials: true 
 }
 app.use(cors(corsOptions));

@@ -1,4 +1,4 @@
 export interface Enviromment {
-  currentEnvironment: string;
+  production:  boolean;
   apiUrl:string
 }
