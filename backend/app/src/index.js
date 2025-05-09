@@ -13,7 +13,7 @@ const database = new DatabaseMemory();
 const client = new OAuth2Client();
 
 const corsOptions = {
-  origin: "http://localhost:4200",
+  origin: process.env.LOCALHOST,
   credentials: true 
 }
 app.use(cors(corsOptions));
