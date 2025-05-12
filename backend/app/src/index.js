@@ -12,11 +12,17 @@ const PORT = process.env.PORT || 3000;
 const database = new DatabaseMemory();
 const client = new OAuth2Client();
 
-const corsOptions = {
-  origin: process.env.ORIGINS || "http://localhost:4200",
-  credentials: true 
+const allowList = process.env.ALLOWLIST; // lista de rotas que seram permitidas a acessar a api
+const optionsDelegate  = function (req, callback) {
+  let corsOptions;
+  if(allowList.includes(req.header('Origin'))){
+    corsOptions = { origin: true };
+  } else {
+    corsOptions = {origin: false};
+  }
+  callback(null, corsOptions)
 }
-app.use(cors(corsOptions));
+app.use(cors(optionsDelegate));
 app.use(bodyParser.json());
 
 app.post("/api/user/create", (req, res) => {

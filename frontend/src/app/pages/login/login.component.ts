@@ -57,7 +57,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
   }
 
-  loginGoogle(): void {
+  promptLogin(): void {
     google.accounts.id.prompt();
   }
 
