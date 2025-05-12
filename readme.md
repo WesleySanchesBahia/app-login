@@ -18,7 +18,7 @@ Aplicação desenvolvida para fins de conhecimento e desenvovimento da habilitad
 
 ✔️ API em node.js para criar token de acesso e percitencia do dados localmente usuário localmente.
 
-✔️ Upload do front-end na nuvem na plataforma vercel.com e backend no render.com
+✔️ Upload do front-end na nuvem na plataforma vercel.com e back-end no render.com
 
 # 📘 Documentação
 
