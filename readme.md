@@ -16,7 +16,9 @@ Aplicação desenvolvida para fins de conhecimento e desenvovimento da habilitad
 
 ✔️ Proteção de rota no frontend.
 
-✔️ API em node.js para criar token de acesso e percitencia do dados localmente usuário localmente. 
+✔️ API em node.js para criar token de acesso e percitencia do dados localmente usuário localmente.
+
+✔️ Upload do front-end na nuvem na plataforma vercel.com e backend no render.com
 
 # 📘 Documentação
 
@@ -167,3 +169,9 @@ node index.js
 ```
 
 ---
+
+
+### Demo do projeto rodando em 
+```
+https://app-login-ten.vercel.app/
+```
